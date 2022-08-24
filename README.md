@@ -2,6 +2,16 @@
 
 *Dự án vẫn đang trong quá trình hoàn thành
 
+Tools and technologies used:
+- Oauth2
+- Spring Security
+- Spring Boot
+- Spring MVC
+- Spring Data JPA ( Hibernate)
+- MySQL
+- Thymeleaf
+- SpringToolSuite4
+
 Trang sản phẩm
 
 ![sản phẩm](https://user-images.githubusercontent.com/88927961/186323641-98d13a87-9a95-4f6c-96e1-69e4056f16a5.png)
