@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+
+<title>Insert title here</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img
+				th:src="@{/images/logo.png}" src="../static/images/logo.png"
+				width="auto" height="50" class="d-inline-block align-top" alt="" />
+			</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link"
+						aria-current="page" th:href="@{/}">Trang chủ</a></li>
+					<li class="nav-item"><a class="nav-link active" sec:authorize="hasRole('ADMIN')"
+						th:href="@{/admin}">Admin</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/shop}"
+						href="#">Sản phẩm</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}"
+						href="#">Đăng xuất</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container mt-3">
+		<form th:action="@{/admin/products/add}" method="post"
+			th:object="${productDTO}" enctype="multipart/form-data">
+
+			<div class="row">
+				<div class="col-5">
+				
+					<input type="hidden" name="id" th:field="*{id}">
+					
+					<div class="mb-3">
+						<label for="name" class="form-label">Tên sản phẩm</label> <input
+							type="text" th:field="*{name}" class="form-control" name="name"
+							id="name" placeholder="Nhập tên sản phẩm">
+					</div>
+					<div class="mb-3">
+						<label for="category" class="form-label">Chọn loại sản phẩm</label> <select
+							class="form-control" th:field="*{category_id}" id="category"
+							name="category">
+							<option th:each="category :${categories}"
+								th:value="${category.id}" th:text="${category.name}">
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="price" class="form-label">Giá tiền</label> <input
+							type="number" th:field="*{price}" class="form-control"
+							name="price" id="price" placeholder="Enter Price">
+					</div>
+					<div class="mb-3">
+						<label for="weight" class="form-label">Trọng lượng</label> <input
+							type="text" th:field="*{weight}" class="form-control"
+							name="weight" id="weight" placeholder="Enter Weight">
+					</div>
+					<div class="mb-3">
+						<label for="description" class="form-label">Mô tả</label>
+						<textarea class="form-control" rows="5" th:field="*{description}"
+							name="description" id="description"></textarea>
+					</div>
+				</div>
+				<div class="ms-4 col-5">
+					<p>Ảnh sản phẩm</p>
+					<div class="input-group">
+						<input type="file" class="form-control" name="productImage"
+							id="productImage" accept="image/*">
+					</div>
+					<div class="form-group">
+						<img src="#" id="imgPreview" height="200px" width="200px"
+							th:src="@{${'/productImages/' + productDTO.imageName}}"
+							style="margin: 20px 0" alt=" ">
+					</div>
+					<input type="hidden" name="imgName"
+						th:value="${productDTO.imageName}">
+					<button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
+	<script>
+	//Xem trước ảnh
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#imgPreview').attr('src', e.target.result).width(200)
+							.height(200);
+				}
+				reader.readAsDataURL(input.files[0])
+			}
+		}
+		$('#productImage').change(function() {
+			readURL(this);
+		});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+
+<title>Insert title here</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img
+				th:src="@{/images/logo.png}" src="../static/images/logo.png"
+				width="auto" height="50" class="d-inline-block align-top" alt="" />
+			</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" th:href="@{/}">Trang
+							chủ</a></li>
+					<li class="nav-item"><a class="nav-link"
+						sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">Admin</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						th:href="@{/shop}" href="#">Sản phẩm</a></li>
+					<li class="nav-item"><a class="nav-link "
+						sec:authorize="isAnonymous()" th:href="@{/login}" href="#">Đăng
+							nhập</a></li>
+					<li class="nav-item"><a class="nav-link "
+						sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">Đăng
+							ký</a></li>
+					<li class="nav-item active"><a class="nav-link "
+						th:href="@{/cart}" href="#">Giỏ hàng</a></li>
+					<li class="nav-item active"><span class="nav-link "
+						th:text="${cartCount}">0</span></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col-sm-3">
+				<ul class="list-group">
+					<h4>Thể loại</h4>
+					<a style="text-decoration: none;" th:href="@{/shop}"
+						aria-current="true"><li class="list-group-item">Tất cả
+							sản phẩm</li></a>
+					<a style="text-decoration: none;"
+						th:href="@{/shop/categories/{id}(id=${category.id})}"
+						th:each="category, iState : ${categories}">
+						<li class="list-group-item" th:text="${category.name}"></li>
+					</a>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<div class="container">
+					<div class="row">
+						<div class="col-4 mb-3" th:each="product : ${products}">
+							<div class="card">
+								<img style="width: 100%; height: 15rem"
+									th:src="@{${'/productImages/' + product.imageName}}"
+									th:alt="${product.name}" class="card-img-top img-fluid">
+								<div class="card-body">
+									<h5 class="card-title" th:text="${product.name}"></h5>
+									<h4>
+										<span th:text="${product.price}"></span>
+									</h4>
+									<a th:href="@{/shop/viewproduct/{id}(id=${product.id})}"
+										class="btn btn-primary">Chi tiết</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

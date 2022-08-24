@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+
+<title>Insert title here</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img
+				th:src="@{/images/logo.png}" src="../static/images/logo.png"
+				width="auto" height="50" class="d-inline-block align-top" alt="" />
+			</a>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link " aria-current="page"
+						href="#" th:href="@{/}">Trang chủ</a></li>
+					<li class="nav-item"><a class="nav-link"
+						sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">Admin</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/shop}"
+						href="#">Sản phẩm</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container mt-3">
+		<div class="col-sm-6">
+			<h3>Đăng ký</h3>
+			<form th:action="@{/register}" th:object="${user}" method="post">
+				<div class="mb-3">
+					<label for="firstName">Tên</label> <input type="text"
+						name="firstName" id="firstName" required
+						placeholder="Nhập tên của bạn" class="form-control">
+				</div>
+				<div class="mb-3">
+					<label for="lastName">Họ</label> <input type="text" name="lastName"
+						id="lastName" required placeholder="Nhập họ của bạn"
+						class="form-control">
+				</div>
+				<div class="mb-3">
+					<label for="email">Email</label> <input type="email"
+						class="form-control" required minlength="6" placeholder="Email"
+						name="email" id="email">
+				</div>
+				<div class="mb-3">
+					<label for="password">Mật khẩu</label> <input type="password"
+						class="form-control" required placeholder="Nhập mật khẩu"
+						name="password" id="password">
+				</div>
+
+				<input type="submit" value="Đăng ký" class="btn btn-primary mb-3"><br>
+				<span>Bạn đã có tài khoản ? <a th:href="@{/login}">Đăng
+						nhập </a></span>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
