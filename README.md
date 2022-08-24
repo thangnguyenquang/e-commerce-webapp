@@ -6,7 +6,6 @@ Tools and technologies used:
 - Oauth2
 - Spring Security
 - Spring Boot
-- Spring MVC
 - Spring Data JPA ( Hibernate)
 - MySQL
 - Thymeleaf
